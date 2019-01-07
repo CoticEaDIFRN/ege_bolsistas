@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import CharField, BooleanField
 
 
 class Edital(models.Model):
@@ -46,8 +47,10 @@ class Vaga(models.Model):
 
 
 class Usuario(models.Model):
-    ifrn_id = models.CharField('Ifrn ID', max_length=100, help_text='Matrícula suap ou CPF')
-    nome = models.CharField('Nome', max_length=100)
+    username = CharField(_('username'), max_length=150, primary_key=True)
+    is_active = BooleanField(_('is active'), default=True)
+    is_staff = BooleanField(_('staff status'), default=True)
+    is_superuser = BooleanField(_('superuser status'), default=False)
 
 
 class Coordenador(models.Model):

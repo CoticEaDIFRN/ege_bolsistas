@@ -1,6 +1,0 @@
-#!/bin/bash
-source color_logs
-
-./down
-rm -f .env
-docker rmi my_project:latest

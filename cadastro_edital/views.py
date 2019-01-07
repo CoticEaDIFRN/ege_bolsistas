@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from django.shortcuts import render, redirect, render_to_response
 from django.utils import timezone
 from .forms import EditalForm, PagamentoForm, VagaForm, CoordenadorForm

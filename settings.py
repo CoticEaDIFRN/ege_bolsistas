@@ -1,45 +1,64 @@
-import os
+"""
+The MIT License (MIT)
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+Copyright 2015 Umbrella Tech.
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""
+from python_brfied.env import env, env_as_bool, env_as_list
+
+# Development
+DEBUG = env_as_bool('DJANGO_DEBUG', True)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {'console': {'class': 'logging.StreamHandler'}, },
+    'loggers': {
+        '': {'handlers': ['console'], 'level': 'DEBUG'},
+    },
+}
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: 'localhost' in request.get_host() or '127.0.0.1' in request.get_host() or 'sso' in request.get_host(),
+}
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# Apps
+MY_APPS = env_as_list('MY_APPS', 'cadastro_edital,ege_django_auth_jwt,ege_django_theme')
+DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
+# THIRD_APPS = env_as_list('THIRD_APPS', 'ege_django_theme')
+THIRD_APPS = env_as_list('THIRD_APPS', '')
+DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
+                                         'django.contrib.auth,'
+                                         'django.contrib.contenttypes,'
+                                         'django.contrib.sessions,'
+                                         'django.contrib.messages,'
+                                         'django.contrib.staticfiles')
+INSTALLED_APPS = MY_APPS + THIRD_APPS + DEV_APPS + DJANGO_APPS
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#t7@p+9nu3jf8sm=c673bt_&rj*()^dpx)wfj8d7r6loau^=uc'
+# Middleware
+MIDDLEWARE = env_as_list('MIDDLEWARE', 'django.middleware.security.SecurityMiddleware,'
+                                       'django.contrib.sessions.middleware.SessionMiddleware,'
+                                       'django.middleware.common.CommonMiddleware,'
+                                       'django.middleware.csrf.CsrfViewMiddleware,'
+                                       'django.contrib.auth.middleware.AuthenticationMiddleware,'
+                                       'django.contrib.messages.middleware.MessageMiddleware,'
+                                       'django.middleware.clickjacking.XFrameOptionsMiddleware')
+if DEBUG:
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
-
-INSTALLED_APPS = [
-    'cadastro_edital',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'urls'
-
+# Template engine
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -50,60 +69,57 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'ege_perfil.context_processors.ege',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'wsgi.application'
-
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': env('POSTGRES_ENGINE', 'django.db.backends.postgresql_psycopg2'),
+        'HOST': env('POSTGRES_HOST', 'db'),
+        'PORT': env('POSTGRES_PORT', '5432'),
+        'NAME': env('POSTGRES_DB_PERFIL', 'ege_perfil'),
+        'USER': env('POSTGRES_USER', 'postgres'),
+        'PASSWORD': env('POSTGRES_PASSWORD', 'postgres'),
     }
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# Routing
+WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'wsgi.application')
+ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
+USE_X_FORWARDED_HOST = True
+ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
+URL_PATH_PREFIX = env('URL_PATH_PREFIX', 'ege/processoseletivo/')
+STATIC_URL = env('DJANGO_STATIC_URL', "/%s%s" % (URL_PATH_PREFIX, 'static/'))
+STATIC_ROOT = "/static"
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
-
-LANGUAGE_CODE = 'pt-br'
-
-TIME_ZONE = 'America/Fortaleza'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+# Localization
+LANGUAGE_CODE = env('DJANGO_USE_I18N', 'pt-br')
+TIME_ZONE = env('DJANGO_USE_I18N', 'UTC')
+USE_I18N = env_as_bool('DJANGO_USE_I18N', True)
+USE_L10N = env_as_bool('DJANGO_USE_L10N', True)
+USE_TZ = env_as_bool('DJANGO_USE_TZ', True)
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+# Auth and Security... some another points impact on security, take care!
+SECRET_KEY = env('DJANGO_SECRET_KEY', 'changeme')
+LOGIN_URL = env("DJANGO_LOGIN_URL", 'http://localhost/ege/processoseletivo/jwt/login')
+LOGOUT_URL = env("DJANGO_LOGOUT_URL", 'http://localhost/ege/processoseletivo/logout/')
+LOGIN_REDIRECT_URL = env("DJANGO_LOGIN_REDIRECT_URL", 'http://localhost/ege/processoseletivo/')
+LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", 'http://localhost/ege/processoseletivo/')
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+EGE_ACESSO_JWT_AUTHORIZE = env("EGE_ACESSO_JWT_AUTHORIZE", 'http://localhost/ege/acesso/jwt/authorize/')
+EGE_ACESSO_JWT_VALIDATE = env("EGE_ACESSO_JWT_VALIDATE", 'http://acesso:8000/ege/acesso/jwt/validate/')
+EGE_ACESSO_JWT_LOGOUT = env("EGE_ACESSO_JWT_LOGOUT", 'http://acesso:8000/ege/acesso/logout/')
+EGE_ACESSO_JWT_CLIENT_ID = env("EGE_ACESSO_JWT_CLIENT_ID", '_EGE_ACESSO_JWT_CLIENT_ID_')
+EGE_ACESSO_JWT_SECRET = env("EGE_ACESSO_JWT_SECRET", '_EGE_ACESSO_JWT_SECRET_')
+EGE_ACESSO_BACKEND = env("EGE_ACESSO_BACKEND", 'ege_django_auth_jwt.backends.PreExistentUserJwtBackend')
 
-STATIC_URL = '/static/'
+AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", 'ege_perfil.Profile')

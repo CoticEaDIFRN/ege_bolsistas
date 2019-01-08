@@ -2,6 +2,14 @@ from django.shortcuts import render, redirect, render_to_response
 from django.utils import timezone
 from .forms import EditalForm, PagamentoForm, VagaForm, CoordenadorForm
 from .models import Edital,Vaga
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+
+
+@staff_member_required
+def admin_dashboard(request):
+    return render(request, 'cadastro_edital/dashboard.html')
+
 
 def novoEdital(request):
     form1 = EditalForm()

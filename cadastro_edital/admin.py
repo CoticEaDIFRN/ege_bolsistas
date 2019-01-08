@@ -1,4 +1,5 @@
 from django.contrib import admin
+from ege_django_auth_jwt.sites import ege_admin_site
 from .models import Edital, Pagamento, Vaga, Fase, Coordenador, Usuario, Avaliador, Documento, Cronograma, CriterioAvaliacao, MotivoNotaZero
 
 
@@ -52,6 +53,6 @@ class FaseAdmin(admin.ModelAdmin):
         MotivoNotaZeroInline
     ]
 
-admin.site.register(Edital, EditalAdmin)
-admin.site.register(Usuario)
-admin.site.register(Fase, FaseAdmin)
+ege_admin_site.register(Edital, EditalAdmin)
+ege_admin_site.register(Usuario)
+ege_admin_site.register(Fase, FaseAdmin)

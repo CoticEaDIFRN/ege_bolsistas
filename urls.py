@@ -21,10 +21,12 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from django.urls import path, include
-from django.contrib import admin
+# from django.contrib import admin
+from ege_django_auth_jwt.sites import ege_admin_site
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from ege_django_auth_jwt.views import jwt_logout
 
 
 urlpatterns = [
@@ -32,14 +34,15 @@ urlpatterns = [
         settings.URL_PATH_PREFIX,
         include(
             [
-                path('admin/', admin.site.urls),
+                path('logout/', jwt_logout, name='logout'),
+                path('', include('cadastro_edital.urls', namespace='cadastro_edital')),
+                path('', include('ege_django_auth_jwt.urls', namespace='ege_django_auth_jwt')),
+                path('admin/', ege_admin_site.urls),
                 # path('api-auth/', include('rest_framework.urls')),
-                # path('', include('django.contrib.auth.urls')),
-                # path('', include('cadastro_edital.urls', namespace='cadastro_edital')),
             ]
         )
     ),
-    # path('', RedirectView.as_view(url=settings.LOGIN_REDIRECT_URL))
+    path('', RedirectView.as_view(url=settings.LOGIN_REDIRECT_URL))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

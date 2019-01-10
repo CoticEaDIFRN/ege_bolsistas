@@ -22,11 +22,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from django.urls import path, include
 # from django.contrib import admin
-from ege_django_auth_jwt.sites import ege_admin_site
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from ege_django_auth_jwt.views import jwt_logout
+from ege_auth_jwt.sites import ege_admin_site
+from ege_auth_jwt.views import jwt_logout
 
 
 urlpatterns = [
@@ -36,7 +36,7 @@ urlpatterns = [
             [
                 path('logout/', jwt_logout, name='logout'),
                 path('', include('cadastro_edital.urls', namespace='cadastro_edital')),
-                path('', include('ege_django_auth_jwt.urls', namespace='ege_django_auth_jwt')),
+                path('', include('ege_auth_jwt.urls', namespace='ege_auth_jwt')),
                 path('admin/', ege_admin_site.urls),
                 # path('api-auth/', include('rest_framework.urls')),
             ]

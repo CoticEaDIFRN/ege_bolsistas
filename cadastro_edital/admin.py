@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ege_django_auth_jwt.sites import ege_admin_site
+from ege_auth_jwt.sites import ege_admin_site
 from .models import Edital, Pagamento, Vaga, Fase, Coordenador, Usuario, Avaliador, Documento, Cronograma, CriterioAvaliacao, MotivoNotaZero
 
 

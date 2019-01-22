@@ -38,7 +38,7 @@ DEBUG_TOOLBAR_CONFIG = {
 MY_APPS = env_as_list('MY_APPS', 'cadastro_edital,ege_auth_jwt')
 DEV_APPS = env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
 # THIRD_APPS = env_as_list('THIRD_APPS', 'ege_theme')
-THIRD_APPS = env_as_list('THIRD_APPS', '')
+THIRD_APPS = env_as_list('THIRD_APPS', 'rest_framework')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.auth,'
                                          'django.contrib.contenttypes,'

@@ -1,7 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Model, ForeignKey, OneToOneField, CASCADE
-from django.db.models import CharField, BooleanField, URLField, PositiveIntegerField, DateTimeField, DateField, \
-    DecimalField, FloatField
+from django.db.models import CharField, BooleanField, URLField, PositiveIntegerField, DateTimeField, DateField, DecimalField, FloatField
 from django.contrib.auth.models import AbstractUser
 
 
@@ -65,7 +64,7 @@ class Coordenador(Model):
     edital = ForeignKey(Edital, on_delete=CASCADE)
 
     def __str__(self):
-        return self.usuario
+        return "coordenador"
 
 
 class Fase(Model):
@@ -111,7 +110,7 @@ class Avaliador(Model):
     fase = ForeignKey(Fase, on_delete=CASCADE)
 
     def __str__(self):
-        return self.usuario
+        return "Avaliador"
 
 
 class CriterioAvaliacao(Model):

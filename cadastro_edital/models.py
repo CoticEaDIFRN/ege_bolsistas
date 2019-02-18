@@ -20,20 +20,12 @@ class Edital(Model):
     ano = PositiveIntegerField('Ano', help_text='Digite o ano')
     periodo = PositiveIntegerField('Período letivo', choices=PERIODO)
     data_publicacao = DateTimeField('Data de publicação')
-
-    def __str__(self):
-        return self.tipo
-
-
-class Pagamento(Model):
     existe_taxa = BooleanField(default=False)
     valor_taxa = DecimalField(max_digits=7, decimal_places=2)
     vencimento_boleto = DateField()
-    edital = OneToOneField(Edital,on_delete=CASCADE)
 
     def __str__(self):
-        return "Pagamento"
-
+        return self.tipo
 
 class Vaga(Model):
     curso = CharField('Curso', max_length=200)

@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Edital, Pagamento, Vaga, Fase, Coordenador, Usuario, Avaliador, Documento, Cronograma, CriterioAvaliacao, MotivoNotaZero
-
-
-class PagamentoInline(admin.TabularInline):
-    model = Pagamento
-    extra = 1
+from .models import Edital, Vaga, Fase, Coordenador, Usuario, Avaliador, Documento, Cronograma, CriterioAvaliacao, MotivoNotaZero
 
 
 class VagaInline(admin.TabularInline):
@@ -17,7 +12,6 @@ class CoordenadorInline(admin.TabularInline):
 
 class EditalAdmin(admin.ModelAdmin):
     inlines = [
-        PagamentoInline,
         VagaInline,
         CoordenadorInline
     ]

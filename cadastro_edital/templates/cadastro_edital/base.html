@@ -1,0 +1,16 @@
+{% load static %}
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="{% static 'cadastro_edital/styles/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'cadastro_edital/styles/signin.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            {% block body %}
+            {% endblock %}
+        </div>
+        <script href="{% static 'cadastro_edital/scripts/vendor/bootstrap-min.js' %}"></script>
+    </body>
+</html>

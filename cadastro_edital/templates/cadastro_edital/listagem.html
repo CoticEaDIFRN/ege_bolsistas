@@ -1,0 +1,27 @@
+{% extends 'inscricao/base.html' %}
+
+<h1>Deu certo</h1>
+
+{% block body %}
+<div class="col-lg-12">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Todos os Cadastros</strong>
+		</div>
+
+		{% if edital %}
+			<ul>
+				{% for e in edital %}
+					<li>
+						<a>{{ e.periodo }}</a> / {{ e.tipo }} /
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>Nenhum edital encontrado</p>
+		{% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

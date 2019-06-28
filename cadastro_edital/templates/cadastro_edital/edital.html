@@ -1,0 +1,150 @@
+{% extends 'cadastro_edital/base.html' %}
+
+
+
+
+{% block body %}
+
+
+
+            <form class="form-signin" role="form" action="{% url 'novoEdital' %}" method="post">
+
+                        {% csrf_token %}
+
+
+                        <h3 class="form-signin-heading">Novo editals</h3>
+
+
+
+                        <input type="text" id="id_tipo" name="tipo" class="form-control"
+                            placeholder="Discente/Bolsista *" required ><br>
+
+
+                        <input type="text" id="id_programa" name="programa" class="form-control"
+                            placeholder="Programa *" required ><br>
+
+
+                         <input type="text" id="id_numero" name="numero" class="form-control"
+                            placeholder="Número *" required ><br>
+
+
+                        <input type="text" id="id_siglaUO" name="siglaUO" class="form-control"
+                            placeholder="Ex.: DG-EAD/IFRN *" required ><br>
+
+
+                        <input type="text" id="id_linkEdital" name="linkEdital" class="form-control"
+                            placeholder="Informe o LINK onde está o edital *" required ><br>
+
+                         <input type="text" id="id_grupo" name="grupo" class="form-control"
+                            placeholder="Grupo *" required ><br>
+
+                        <input type="text" id="id_descricao" name="descricao" class="form-control"
+                            placeholder="Descrição *" required ><br>
+
+
+                        <input type="number" id="id_ano" name="ano" class="form-control" required ><br>
+
+
+                         <select id=cbPeriodo class="form-control" name="periodo" placeholder="Periodo *">
+                            <option value="p" selected>1º período</option>
+                            <option value="s" >2º período</option>
+                            <option value="n" >Não informar</option>
+
+                        </select><br>
+
+                         Data de publicação
+                        <input type="date" id="id_data_publicacao" name="data_publicacao" class="form-control" required><br>
+
+
+                         <input type="radio" id="id_existe_taxa" name= "existe_taxa" class="form-row">Exite taxa<br><p>
+
+
+                         <input type="text" id="id_valor_taxa" name= "valor_taxa" class="form-control"
+                               placeholder=" Valor da taxa *" required><br>
+
+                        <input type="date" id="id_vencimento_boleto" name="vencimento_boleto" class="form-control"
+                            placeholder="Vencimento de boleto *" required ><br>
+
+
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+                            Registrar
+                        </button>
+
+
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                    &times;
+                                </button>
+                                {{form.non_field_errors}}
+                            </div>
+                        {% endif %}
+
+
+                    </form>
+
+
+
+
+<!--<h1>Novo Edital</h1>-->
+<!--    <form method="POST" class="novo-edital">-->
+<!--         {% csrf_token %}-->
+<!--         {{ form1.as_p }}-->
+
+
+<!--        <button type="submit" >Salvar</button>-->
+<!--    </form>-->
+
+
+
+<!-- <form>-->
+<!--        <div class="form-group">-->
+<!--            <label >Tipo</label>-->
+<!--            <input type={{form1.tipo.as_p}} class="form-control" aria-describedby="typeHelp" placeholder="Discente/Bolsista">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Programa</label>-->
+<!--            <input type={{form1.programa.as_p}} class="form-control" placeholder="Programa">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Número</label>-->
+<!--            <input type={{form1.numero.as_p}} class="form-control" placeholder="Número">-->
+<!--        </div>-->
+<!--         <div class="form-group">-->
+<!--            <label >siglaUO</label>-->
+<!--            <input type={{form1.siglaUO.as_p}} class="form-control" placeholder="Ex.: DG-EAD/IFRN">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Link do edital</label>-->
+<!--            <input type={{form1.linkEdital.as_p}} class="form-control" placeholder="Informe o LINK onde está o edital">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Grupo</label>-->
+<!--            <input type={{form1.grupo.as_p}} class="form-control" >-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Descrição</label>-->
+<!--            <input type={{form1.descricao.as_p}} class="form-control" >-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Ano</label>-->
+<!--            <input type={{form1.ano.as_p}} class="form-control" >-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Período</label>-->
+<!--            <input type={{form1.periodo.as_p}} class="form-control" >-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label >Data de publicação</label>-->
+<!--            <input type={{form1.data_publicacao.as_p}} class="form-control" >-->
+<!--        </div>-->
+
+
+<!--        <button type="submit" class="btn btn-primary">Salvar</button>-->
+<!--    </form>-->
+
+
+
+
+{% endblock %}

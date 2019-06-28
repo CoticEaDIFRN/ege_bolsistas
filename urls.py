@@ -33,11 +33,10 @@ urlpatterns = [
         include(
             [
                 path('logout/', jwt_logout, name='logout'),
-                path('', include('cadastro_edital.urls', namespace='cadastro_edital')),
-                path('', include('ege_utils.urls', namespace='ege_utils')),
+                path('', include('cadastro_edital.urls'), name='cadastro_edital'),
+                path('', include('ege_utils.urls'), name='ege_utils'),
                 path('admin/', admin.site.urls),
-                # path('api-auth/', include('rest_framework.urls')),
-                #path('', include('cadastro_edital.urls', namespace='api_v1')),
+
             ]
         )
     ),

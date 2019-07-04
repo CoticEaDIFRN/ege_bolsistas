@@ -18,7 +18,7 @@ class RegistrarEditalView(View):
 
         if form.is_valid():
             dados_form = form.data
-            # edital = Edital.objects.get(cpf=dados_form['cpf'])
+
             edital = Edital.objects.create(tipo=dados_form['tipo'],
                                            programa=dados_form['programa'],
                                            numero=dados_form['numero'],
@@ -31,7 +31,7 @@ class RegistrarEditalView(View):
                                            data_publicacao=dados_form['data_publicacao'],
                                            existe_taxa=dados_form['existe_taxa'],
                                            valor_taxa=dados_form['valor_taxa'],
-                                           vencimento_boleto=dados_form['vencimento_boleto'],)
+                                           vencimento_boleto=dados_form['vencimento_boleto'])
 
             return redirect('confirmar')
 

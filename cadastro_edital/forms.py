@@ -13,6 +13,7 @@ class RegistrarEditalForm(forms.Form):
         if not super(RegistrarEditalForm, self).is_valid():
             self.adiciona_erro('Por favor, verifique os dados informados')
 
+
         # if not Usuario.objects.filter(cpf=self.data['cpf']).exists():
         #     self.adiciona_erro("Não existe cadastro com o CPF informado.")
 

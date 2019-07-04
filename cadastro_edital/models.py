@@ -5,10 +5,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Edital(Model):
-    PERIODO = (
-        (1, '1º Período'),
-        (2, '2º Período'),
-    )
+    # PERIODO = (
+    #     (1, '1º Período'),
+    #     (2, '2º Período'),
+    # )
 
     tipo = CharField('Tipo', max_length=100, help_text='Discente/Bolsista')
     programa = CharField('Programa', max_length=100)
@@ -18,11 +18,11 @@ class Edital(Model):
     grupo = CharField('Grupo', max_length=200, null=True)
     descricao = CharField('Descrição', max_length=300)
     ano = PositiveIntegerField('Ano', help_text='Digite o ano')
-    periodo = PositiveIntegerField('Período letivo', choices=PERIODO)
+    periodo = CharField('Período letivo', max_length=100)
     data_publicacao = DateTimeField('Data de publicação')
     existe_taxa = BooleanField(default=False)
     valor_taxa = DecimalField(max_digits=7, decimal_places=2)
-    vencimento_boleto = DateField()
+    vencimento_boleto = DateTimeField("Data de vencimento")
 
     def __str__(self):
         return self.tipo

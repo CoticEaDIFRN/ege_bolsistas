@@ -1,4 +1,4 @@
-{% extends 'inscricao/base.html' %}
+{% extends 'cadastro_edital/base.html' %}
 
 {% block body %}
 <div class="col-lg-12">
@@ -8,8 +8,30 @@
 		</div>
         <div class="panel-heading">
 			<strong>Dados informados</strong>
+			</div>
+            <br>
+            tipo: <a>{{ edital.tipo }}</a> <br>
+            programa: <a>{{ edital.programa }}</a> <br>
+			numero: <a>{{ edital.numero }}</a> <br>
+			siglaUO: <a>{{ edital.siglaUO }}</a> <br>
+			linkEdital: <a>{{ edital.linkEdital }}</a> <br>
+			grupo: <a>{{ edital.grupo }}</a> <br>
+			descrição: <a>{{ edital.descricao }}</a> <br>
+			ano: <a>{{ edital.ano }}</a> <br>
+			periodo: <a>{{ edital.periodo }}</a> <br>
+			data_publicacao: <a>{{ edital.data_publicacao }}</a> <br>
+
+		 <div class="panel-heading">
+			<strong>Dados informados</strong>
+			</div>
+            <br>
+		 	tipo: <a>{{ vaga.curso }}</a> <br>
+			vaga: <a>{{ vaga.vaga }}</a> <br>
+			número de vagas: <a>{{ vaga.numero_vagas }}</a> <br>
+
+
 		</div>
-           confirmando criação de edital
+
     </div>
 </div>
 

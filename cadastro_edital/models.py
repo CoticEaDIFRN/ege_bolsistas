@@ -14,15 +14,15 @@ class Edital(Model):
     programa = CharField('Programa', max_length=100)
     numero = CharField('Número', max_length=50, null=True, blank=True)
     siglaUO = CharField('Unidade organizacional', max_length=100, help_text='Ex.: DG-EAD/IFRN')
-    linkEdital = URLField('URL', max_length=300, help_text='Informe o LINK onde está o edital')
+    linkEdital = CharField('URL', max_length=300, help_text='Informe o LINK onde está o edital')
     grupo = CharField('Grupo', max_length=200, null=True)
     descricao = CharField('Descrição', max_length=300)
-    ano = PositiveIntegerField('Ano', help_text='Digite o ano')
+    ano = CharField('Ano', max_length=20)
     periodo = CharField('Período letivo', max_length=100)
     data_publicacao = DateTimeField('Data de publicação')
-    existe_taxa = BooleanField(default=False)
-    valor_taxa = DecimalField(max_digits=7, decimal_places=2)
-    vencimento_boleto = DateTimeField("Data de vencimento")
+    #existe_taxa = BooleanField(default=False)
+    # valor_taxa = DecimalField(max_digits=7, decimal_places=2)
+    # vencimento_boleto = DateTimeField("Data de vencimento")
 
     def __str__(self):
         return self.tipo

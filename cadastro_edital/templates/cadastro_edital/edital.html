@@ -12,39 +12,41 @@
                         {% csrf_token %}
 
 
-                        <h2 class="form-signin-heading">Novo edital</h2>
+                        <h2 class="form-signin-heading center-block">Novo edital</h2>
 
 
-
+                        <b>Tipo:</b>
                         <input type="text" id="id_tipo" name="tipo" class="form-control"
                             placeholder="Discente/Bolsista *" required ><br>
 
-
+                        <b>Programa:</b>
                         <input type="text" id="id_programa" name="programa" class="form-control"
-                            placeholder="Programa *" required ><br>
+                            placeholder="Ex.: UAB, ETEC *" required ><br>
 
-
-                         <input type="text" id="id_numero" name="numero" class="form-control"
+                        <b>Número:</b>
+                        <input type="text" id="id_numero" name="numero" class="form-control"
                             placeholder="Número *" required ><br>
 
-
+                        <b>Sigla da Unidade Organizacional:</b>
                         <input type="text" id="id_siglaUO" name="siglaUO" class="form-control"
                             placeholder="Ex.: DG-EAD/IFRN *" required ><br>
 
-
+                        <b>link do Edital:</b>
                         <input type="text" id="id_linkEdital" name="linkEdital" class="form-control"
                             placeholder="Informe o LINK onde está o edital *" required ><br>
 
+                         <b>Grupo:</b>
                          <input type="text" id="id_grupo" name="grupo" class="form-control"
                             placeholder="Grupo *" required ><br>
 
-                        <input type="text" id="id_descricao" name="descricao" class="form-control"
-                            placeholder="Descrição *" required ><br>
+                        <b>Descrição:</b>
+                        <textarea id="id_descricao" name="descricao" class="form-control"
+                                  placeholder="Descrição *" required > </textarea><br>
 
-                         <Ano>                                                                                                                                                                                                                                                                                                  </Ano>
+                        <b>Ano:</b>                                                                                                                                                                                                                                                                                                  </bAno>
                         <input type="number" id="id_ano" name="ano" class="form-control" required ><br>
 
-
+                         <b>Período:</b>
                          <select id=cbPeriodo class="form-control" name="periodo" placeholder="Periodo *">
                             <option value="1º periodo" selected>1º período</option>
                             <option value="2º periodo" >2º período</option>
@@ -52,7 +54,7 @@
 
                          </select><br>
 
-                         Data de publicação
+                        <b>Data de publicação:</b>
                         <input type="date" id="id_data_publicacao" name="data_publicacao" class="form-control" required><br>
 
 
